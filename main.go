@@ -87,10 +87,10 @@ func main() {
 			}
 			fmt.Println()
 		case "4":
-			TaskList()
-			fmt.Println()
-
 			for {
+				TaskList()
+				fmt.Println()
+
 				fmt.Print("Delete a task? ")
 				scanner.Scan()
 				if err := scanner.Err(); err != nil {
@@ -115,6 +115,7 @@ func main() {
 				}
 
 				tasks = afterRemove
+				fmt.Println()
 			}
 			fmt.Println()
 		case "0":
