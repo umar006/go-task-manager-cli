@@ -13,7 +13,10 @@ type Task struct {
 	completed bool
 }
 
-var tasks []Task
+var (
+	tasks          []Task
+	completedTasks []Task
+)
 
 func main() {
 	for {
@@ -55,6 +58,11 @@ func main() {
 		case "2":
 			fmt.Println("Task list:")
 			for idx, task := range tasks {
+				fmt.Printf("\t%d. %s\n", idx+1, task.task)
+			}
+
+			fmt.Println("Completed task list:")
+			for idx, task := range completedTasks {
 				fmt.Printf("\t%d. %s\n", idx+1, task.task)
 			}
 			fmt.Println()
