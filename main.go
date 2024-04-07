@@ -7,7 +7,11 @@ import (
 	"os"
 )
 
-var tasks []string
+type Task struct {
+	task string
+}
+
+var tasks []Task
 
 func main() {
 	for {
@@ -36,10 +40,12 @@ func main() {
 					log.Fatal(err)
 				}
 
-				newTask := scanner.Text()
-				if len(newTask) == 0 {
+				inputTask := scanner.Text()
+				if len(inputTask) == 0 {
 					break
 				}
+
+				newTask := Task{task: inputTask}
 
 				tasks = append(tasks, newTask)
 			}
@@ -47,7 +53,7 @@ func main() {
 		case "2":
 			fmt.Println("Task list:")
 			for _, task := range tasks {
-				fmt.Println("\t- " + task)
+				fmt.Println("\t- " + task.task)
 			}
 			fmt.Println()
 		case "0":
