@@ -27,15 +27,20 @@ func main() {
 
 	switch menu {
 	case "1":
-		fmt.Print("what's your task? ")
-		scanner.Scan()
-		if err := scanner.Err(); err != nil {
-			log.Fatal(err)
+		for {
+			fmt.Print("what's your task? ")
+			scanner.Scan()
+			if err := scanner.Err(); err != nil {
+				log.Fatal(err)
+			}
+
+			newTask := scanner.Text()
+			if len(newTask) == 0 {
+				break
+			}
+
+			tasks = append(tasks, newTask)
 		}
-
-		newTask := scanner.Text()
-
-		tasks = append(tasks, newTask)
 	default:
 		fmt.Println("wrong menu")
 	}
