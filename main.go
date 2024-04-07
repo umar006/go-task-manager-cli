@@ -20,12 +20,7 @@ var (
 
 func main() {
 	for {
-		fmt.Println("Menu")
-		fmt.Println("1. Add task")
-		fmt.Println("2. List task")
-		fmt.Println("3. Complete task")
-		fmt.Println("4. Delete task")
-		fmt.Println("0. Exit")
+		MainMenu()
 		fmt.Println()
 
 		scanner := bufio.NewScanner(os.Stdin)
@@ -94,6 +89,15 @@ func main() {
 			fmt.Println("Wrong menu!")
 		}
 	}
+}
+
+func MainMenu() {
+	fmt.Println("Menu")
+	fmt.Println("1. Add task")
+	fmt.Println("2. List task")
+	fmt.Println("3. Complete task")
+	fmt.Println("4. Delete task")
+	fmt.Println("0. Exit")
 }
 
 func TaskList() {
