@@ -19,19 +19,22 @@ func main() {
 
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
-
-	scanner.Text()
-
-	fmt.Print("what's your task? ")
-	scanner.Scan()
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
 
-	newTask := scanner.Text()
+	menu := scanner.Text()
 
-	tasks = append(tasks, newTask)
+	switch menu {
+	case "1":
+		fmt.Print("what's your task? ")
+		scanner.Scan()
+		if err := scanner.Err(); err != nil {
+			log.Fatal(err)
+		}
 
-	fmt.Println(newTask)
-	fmt.Println(tasks)
+		newTask := scanner.Text()
+
+		tasks = append(tasks, newTask)
+	}
 }
