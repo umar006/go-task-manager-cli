@@ -54,6 +54,12 @@ func main() {
 			TaskList()
 			fmt.Println()
 		case "3":
+			if len(tasks) == 0 {
+				fmt.Println("No in progress tasks!")
+				fmt.Println()
+				break
+			}
+
 			for {
 				TaskList()
 				fmt.Println()
@@ -87,6 +93,12 @@ func main() {
 			}
 			fmt.Println()
 		case "4":
+			if len(tasks) == 0 {
+				fmt.Println("Do not have tasks!")
+				fmt.Println()
+				break
+			}
+
 			for {
 				TaskList()
 				fmt.Println()
