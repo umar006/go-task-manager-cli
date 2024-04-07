@@ -36,5 +36,7 @@ func main() {
 		newTask := scanner.Text()
 
 		tasks = append(tasks, newTask)
+	default:
+		fmt.Println("wrong menu")
 	}
 }
