@@ -3,8 +3,11 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 )
+
+var tasks []string
 
 func main() {
 	fmt.Println(`Menu:
@@ -17,7 +20,18 @@ func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 
-	choice := scanner.Text()
+	scanner.Text()
 
-	fmt.Println(choice)
+	fmt.Print("what's your task? ")
+	scanner.Scan()
+	if err := scanner.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	newTask := scanner.Text()
+
+	tasks = append(tasks, newTask)
+
+	fmt.Println(newTask)
+	fmt.Println(tasks)
 }
