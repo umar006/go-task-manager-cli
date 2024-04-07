@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 )
 
 type Task struct {
@@ -52,8 +53,41 @@ func main() {
 			fmt.Println()
 		case "2":
 			fmt.Println("Task list:")
-			for _, task := range tasks {
-				fmt.Println("\t- " + task.task)
+			for idx, task := range tasks {
+				fmt.Printf("\t%d. %s\n", idx+1, task.task)
+			}
+			fmt.Println()
+		case "4":
+			fmt.Println("Task list:")
+			for idx, task := range tasks {
+				fmt.Printf("\t%d. %s\n", idx+1, task.task)
+			}
+
+			for {
+				fmt.Print("Delete a task? ")
+				scanner.Scan()
+				if err := scanner.Err(); err != nil {
+					log.Fatal(err)
+				}
+
+				deleteTask := scanner.Text()
+				if len(deleteTask) == 0 {
+					break
+				}
+
+				var afterRemove []Task
+				for idx, task := range tasks {
+					toInt, err := strconv.Atoi(deleteTask)
+					if err != nil {
+						log.Fatal(err)
+					}
+
+					if idx+1 != toInt {
+						afterRemove = append(afterRemove, task)
+					}
+				}
+
+				tasks = afterRemove
 			}
 			fmt.Println()
 		case "0":
