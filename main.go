@@ -10,38 +10,42 @@ import (
 var tasks []string
 
 func main() {
-	fmt.Println(`Menu:
-	1. Add task
-	2. List task
-	3. Complete task
-	4. Delete task
-	`)
+	for {
+		fmt.Println("Menu")
+		fmt.Println("1. Add task")
+		fmt.Println("2. List task")
+		fmt.Println("3. Complete task")
+		fmt.Println("4. Delete task")
+		fmt.Println("0. Exit")
 
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
-	}
-
-	menu := scanner.Text()
-
-	switch menu {
-	case "1":
-		for {
-			fmt.Print("what's your task? ")
-			scanner.Scan()
-			if err := scanner.Err(); err != nil {
-				log.Fatal(err)
-			}
-
-			newTask := scanner.Text()
-			if len(newTask) == 0 {
-				break
-			}
-
-			tasks = append(tasks, newTask)
+		scanner := bufio.NewScanner(os.Stdin)
+		scanner.Scan()
+		if err := scanner.Err(); err != nil {
+			log.Fatal(err)
 		}
-	default:
-		fmt.Println("wrong menu")
+
+		menu := scanner.Text()
+
+		switch menu {
+		case "1":
+			for {
+				fmt.Print("What's your task? ")
+				scanner.Scan()
+				if err := scanner.Err(); err != nil {
+					log.Fatal(err)
+				}
+
+				newTask := scanner.Text()
+				if len(newTask) == 0 {
+					break
+				}
+
+				tasks = append(tasks, newTask)
+			}
+		case "0":
+			os.Exit(0)
+		default:
+			fmt.Println("Wrong menu!")
+		}
 	}
 }
