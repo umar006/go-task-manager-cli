@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 )
 
 func main() {
@@ -11,4 +13,11 @@ func main() {
 	3. Complete task
 	4. Delete task
 	`)
+
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+
+	choice := scanner.Text()
+
+	fmt.Println(choice)
 }
