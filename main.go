@@ -53,8 +53,42 @@ func main() {
 		case "2":
 			TaskList()
 			fmt.Println()
+		case "3":
+			for {
+				TaskList()
+				fmt.Println()
+
+				fmt.Print("Complete a task? ")
+				scanner.Scan()
+				if err := scanner.Err(); err != nil {
+					log.Fatal(err)
+				}
+
+				completeTask := scanner.Text()
+				if len(completeTask) == 0 {
+					break
+				}
+
+				var afterComplete []Task
+				for idx, task := range tasks {
+					toInt, err := strconv.Atoi(completeTask)
+					if err != nil {
+						log.Fatal(err)
+					}
+
+					if idx+1 != toInt {
+						afterComplete = append(afterComplete, task)
+					} else {
+						completedTasks = append(completedTasks, task)
+					}
+				}
+				tasks = afterComplete
+				fmt.Println()
+			}
+			fmt.Println()
 		case "4":
 			TaskList()
+			fmt.Println()
 
 			for {
 				fmt.Print("Delete a task? ")
