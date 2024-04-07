@@ -33,22 +33,7 @@ func main() {
 
 		switch menu {
 		case "1":
-			for {
-				fmt.Print("What's your task? ")
-				scanner.Scan()
-				if err := scanner.Err(); err != nil {
-					log.Fatal(err)
-				}
-
-				inputTask := scanner.Text()
-				if len(inputTask) == 0 {
-					break
-				}
-
-				newTask := Task{task: inputTask}
-
-				tasks = append(tasks, newTask)
-			}
+			AddTask(scanner)
 			fmt.Println()
 		case "2":
 			TaskList()
@@ -156,5 +141,24 @@ func TaskList() {
 	fmt.Println("Completed task list:")
 	for idx, task := range completedTasks {
 		fmt.Printf("\t%d. %s\n", idx+1, task.task)
+	}
+}
+
+func AddTask(scanner *bufio.Scanner) {
+	for {
+		fmt.Print("What's your task? ")
+		scanner.Scan()
+		if err := scanner.Err(); err != nil {
+			log.Fatal(err)
+		}
+
+		inputTask := scanner.Text()
+		if len(inputTask) == 0 {
+			break
+		}
+
+		newTask := Task{task: inputTask}
+
+		tasks = append(tasks, newTask)
 	}
 }
