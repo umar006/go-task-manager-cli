@@ -56,21 +56,10 @@ func main() {
 			}
 			fmt.Println()
 		case "2":
-			fmt.Println("Task list:")
-			for idx, task := range tasks {
-				fmt.Printf("\t%d. %s\n", idx+1, task.task)
-			}
-
-			fmt.Println("Completed task list:")
-			for idx, task := range completedTasks {
-				fmt.Printf("\t%d. %s\n", idx+1, task.task)
-			}
+			TaskList()
 			fmt.Println()
 		case "4":
-			fmt.Println("Task list:")
-			for idx, task := range tasks {
-				fmt.Printf("\t%d. %s\n", idx+1, task.task)
-			}
+			TaskList()
 
 			for {
 				fmt.Print("Delete a task? ")
@@ -104,5 +93,17 @@ func main() {
 		default:
 			fmt.Println("Wrong menu!")
 		}
+	}
+}
+
+func TaskList() {
+	fmt.Println("Task list:")
+	for idx, task := range tasks {
+		fmt.Printf("\t%d. %s\n", idx+1, task.task)
+	}
+
+	fmt.Println("Completed task list:")
+	for idx, task := range completedTasks {
+		fmt.Printf("\t%d. %s\n", idx+1, task.task)
 	}
 }
