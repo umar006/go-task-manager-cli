@@ -9,7 +9,8 @@ import (
 )
 
 type Task struct {
-	task string
+	task      string
+	completed bool
 }
 
 var tasks []Task
