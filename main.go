@@ -54,36 +54,7 @@ func main() {
 				break
 			}
 
-			for {
-				TaskList()
-				fmt.Println()
-
-				fmt.Print("Delete a task? ")
-				scanner.Scan()
-				if err := scanner.Err(); err != nil {
-					log.Fatal(err)
-				}
-
-				deleteTask := scanner.Text()
-				if len(deleteTask) == 0 {
-					break
-				}
-
-				var afterRemove []Task
-				for idx, task := range tasks {
-					toInt, err := strconv.Atoi(deleteTask)
-					if err != nil {
-						log.Fatal(err)
-					}
-
-					if idx+1 != toInt {
-						afterRemove = append(afterRemove, task)
-					}
-				}
-
-				tasks = afterRemove
-				fmt.Println()
-			}
+			DeleteTask(scanner)
 			fmt.Println()
 		case "0":
 			os.Exit(0)
@@ -163,6 +134,39 @@ func CompleteTask(scanner *bufio.Scanner) {
 			}
 		}
 		tasks = afterComplete
+		fmt.Println()
+	}
+}
+
+func DeleteTask(scanner *bufio.Scanner) {
+	for {
+		TaskList()
+		fmt.Println()
+
+		fmt.Print("Delete a task? ")
+		scanner.Scan()
+		if err := scanner.Err(); err != nil {
+			log.Fatal(err)
+		}
+
+		deleteTask := scanner.Text()
+		if len(deleteTask) == 0 {
+			break
+		}
+
+		var afterRemove []Task
+		for idx, task := range tasks {
+			toInt, err := strconv.Atoi(deleteTask)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			if idx+1 != toInt {
+				afterRemove = append(afterRemove, task)
+			}
+		}
+
+		tasks = afterRemove
 		fmt.Println()
 	}
 }
