@@ -19,11 +19,11 @@ var (
 )
 
 func main() {
+	scanner := bufio.NewScanner(os.Stdin)
 	for {
 		MainMenu()
 		fmt.Println()
 
-		scanner := bufio.NewScanner(os.Stdin)
 		scanner.Scan()
 		if err := scanner.Err(); err != nil {
 			log.Fatal(err)
