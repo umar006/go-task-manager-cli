@@ -9,8 +9,8 @@ import (
 )
 
 type Task struct {
-	task      string
-	completed bool
+	Task      string `json:"task"`
+	Completed bool   `json:"completed"`
 }
 
 var (
