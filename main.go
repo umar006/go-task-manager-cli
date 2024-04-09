@@ -21,6 +21,12 @@ var (
 
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
+	tasksRead, err := os.ReadFile("tasks.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = json.Unmarshal(tasksRead, &tasks)
+
 	for {
 		MainMenu()
 		fmt.Println()
