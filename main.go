@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -76,12 +77,12 @@ func MainMenu() {
 func TaskList() {
 	fmt.Println("Task list:")
 	for idx, task := range tasks {
-		fmt.Printf("\t%d. %s\n", idx+1, task.task)
+		fmt.Printf("\t%d. %s\n", idx+1, task.Task)
 	}
 
 	fmt.Println("Completed task list:")
 	for idx, task := range completedTasks {
-		fmt.Printf("\t%d. %s\n", idx+1, task.task)
+		fmt.Printf("\t%d. %s\n", idx+1, task.Task)
 	}
 }
 
@@ -98,9 +99,18 @@ func AddTask(scanner *bufio.Scanner) {
 			break
 		}
 
-		newTask := Task{task: inputTask}
+		newTask := Task{Task: inputTask}
 
 		tasks = append(tasks, newTask)
+	}
+
+	tasksByte, err := json.Marshal(tasks)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = os.WriteFile("tasks.json", tasksByte, 0644)
+	if err != nil {
+		log.Fatal(err)
 	}
 }
 
