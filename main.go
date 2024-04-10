@@ -76,6 +76,17 @@ func ReadTaskFromJsonFile() {
 	}
 }
 
+func WriteTasksToJson(tasks []Task) {
+	tasksByte, err := json.Marshal(tasks)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = os.WriteFile("tasks.json", tasksByte, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func MainMenu() {
 	fmt.Println("Menu")
 	fmt.Println("1. Add task")
@@ -113,15 +124,7 @@ func AddTask(scanner *bufio.Scanner) {
 
 		tasks = append(tasks, newTask)
 	}
-
-	tasksByte, err := json.Marshal(tasks)
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = os.WriteFile("tasks.json", tasksByte, 0644)
-	if err != nil {
-		log.Fatal(err)
-	}
+	WriteTasksToJson(tasks)
 }
 
 func CompleteTask(scanner *bufio.Scanner) {
@@ -155,6 +158,7 @@ func CompleteTask(scanner *bufio.Scanner) {
 		tasks = afterComplete
 		fmt.Println()
 	}
+	WriteTasksToJson(tasks)
 }
 
 func DeleteTask(scanner *bufio.Scanner) {
@@ -188,4 +192,5 @@ func DeleteTask(scanner *bufio.Scanner) {
 		tasks = afterRemove
 		fmt.Println()
 	}
+	WriteTasksToJson(tasks)
 }
