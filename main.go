@@ -14,18 +14,12 @@ type Task struct {
 	Completed bool   `json:"completed"`
 }
 
-var (
-	tasks          []Task
-	completedTasks []Task
-)
+var tasks []Task
 
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
-	tasksRead, err := os.ReadFile("tasks.json")
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = json.Unmarshal(tasksRead, &tasks)
+
+	ReadTaskFromJsonFile()
 
 	for {
 		MainMenu()
@@ -71,6 +65,17 @@ func main() {
 	}
 }
 
+func ReadTaskFromJsonFile() {
+	tasksRead, err := os.ReadFile("tasks.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = json.Unmarshal(tasksRead, &tasks)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func MainMenu() {
 	fmt.Println("Menu")
 	fmt.Println("1. Add task")
@@ -82,16 +87,11 @@ func MainMenu() {
 
 func TaskList() {
 	fmt.Println("Task list:")
-	for _, task := range tasks {
+	for idx, task := range tasks {
 		if !task.Completed {
-			fmt.Printf("\t- %s\n", task.Task)
-		}
-	}
-
-	fmt.Println("Completed task list:")
-	for _, task := range tasks {
-		if task.Completed {
-			fmt.Printf("\t- %s\n", task.Task)
+			fmt.Printf("\t%d. %s\n", idx+1, task.Task)
+		} else {
+			fmt.Printf("\t%d. %s\t\t\u2713 Complete\n", idx+1, task.Task)
 		}
 	}
 }
@@ -147,11 +147,10 @@ func CompleteTask(scanner *bufio.Scanner) {
 				log.Fatal(err)
 			}
 
-			if idx+1 != toInt {
-				afterComplete = append(afterComplete, task)
-			} else {
-				completedTasks = append(completedTasks, task)
+			if idx+1 == toInt {
+				task.Completed = true
 			}
+			afterComplete = append(afterComplete, task)
 		}
 		tasks = afterComplete
 		fmt.Println()
